@@ -88,17 +88,13 @@ public class ArrayDeque<fantasy> implements Deque<fantasy>{
         if (index + 1 > size || index < 0) {
             return null;
         }
-        int p = front;
-        while (index > 0) {
-            p = (p + 1) % item.length;
-            index --;
-        }
+        int p = (front + index + 1) % item.length;
         return item[p];
     }
 
     public void resize(int n) {
         fantasy[] newArray = (fantasy[]) new Object[n];
-        int p = front, x = size, index = 0;
+        int p = (front + 1) % item.length, x = size, index = 0;
         while (x > 0) {
             newArray[index ++] = item[p];
             p = (p + 1) % item.length;
@@ -106,7 +102,7 @@ public class ArrayDeque<fantasy> implements Deque<fantasy>{
         }
         item = newArray;
         front = item.length - 1;
-        rear = size - 1;
+        rear = size;
     }
     public static void main (String[] args) {
         ArrayDeque<Integer> L = new ArrayDeque();
@@ -116,10 +112,10 @@ public class ArrayDeque<fantasy> implements Deque<fantasy>{
         L.addFirst(4);
         L.addLast(5);
         L.printDeque();
-        L.removeFirst();
+        System.out.println(L.removeFirst());
         L.printDeque();
-        L.removeLast();
+        System.out.println(L.removeLast());
         L.printDeque();
-        System.out.println(L.get(2));
+        System.out.println(L.get(0));
     }
 }
